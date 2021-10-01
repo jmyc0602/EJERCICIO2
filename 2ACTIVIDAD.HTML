@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promedio Notas</title>
+  </head>
+  <body>
+    <style>
+      .container {
+        background: linear-gradient(45deg, #fc466b, #3f5efb);
+      }
+      .formulario {
+        background: rgba(255, 255, 255, 0.3);
+        padding: 3em;
+        border-radius: 20px;
+        border-left: 1px solid rgba(255, 255, 255, 0.3);
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+        box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        transition: all 0.2s ease-in-out;
+        display: flex;
+        flex-direction: column;
+      }
+      .formulario p {
+        font-weight: 500;
+        font-size: 3rem;
+        color: #fff;
+        opacity: 0.7;
+        font-size: 1.4rem;
+        margin-top: 0;
+        margin-bottom: 60px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+      .formulario a {
+        color: #ddd;
+        font-size: 12px;
+      }
+      .formulario:hover {
+        text-shadow: 2px 2px 6px #00000040;
+      }
+      .formulario:active {
+        text-shadow: none;
+      }
+      .notas {
+        flex-grow: 1;
+        background: transparent;
+        border-radius: 8vh;
+        padding: 1em;
+        margin-bottom: 2em;
+        border: none;
+        border-left: 1px solid rgba(255, 255, 255, 0.3);
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(5px);
+        box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.2);
+        color: #fff;
+        font-family: Montserrat, sans-serif;
+        font-weight: 500;
+        transition: all 0.2s ease-in-out;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+      .notas:hover {
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 4px 4px 60px 8px rgba(0, 0, 0, 0.2);
+      }
+      .notas:focus {
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 4px 4px 60px 8px rgba(0, 0, 0, 0.2);
+      }
+      .notas::placeholder {
+        color: #fff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+      }
+      .boton {
+        text-transform: uppercase;
+        font-size: 1.5rem;
+        padding: 1rem 0;
+        margin: 1rem 0;
+        border-radius: 8vh;
+      }
+      .boton:hover {
+        background: rgba(255, 255, 255, 0.2);
+        color: whitesmoke;
+      }
+    </style>
+    <main class="container">
+      <form class="formulario">
+        <p>Ponga Las Notas</p>
+        <input
+          type="number"
+          placeholder="Nota 1"
+          class="notas"
+          min="0"
+          max="10"
+        />
+        <input
+          type="number"
+          placeholder="Nota 2"
+          class="notas"
+          min="0"
+          max="10"
+        />
+        <input
+          type="number"
+          placeholder="Nota 3"
+          class="notas"
+          min="0"
+          max="10"
+        />
+        <input type="submit" value="Manda Notas" class="boton" />
+      </form>
+    </main>
+    <script>
+      const notas = document.querySelectorAll('.notas');
+      const arrayNotas = Array.from(notas);
+      let contador = 1;
+      for (let nota of arrayNotas) {
+        nota.setAttribute('id', contador);
+        contador++;
+        console.log(nota);
+      }
+      const nota1 = document.getElementById('1');
+      const nota2 = document.getElementById('2');
+      const nota3 = document.getElementById('3');
+      let resultado;
+      function promedio(nota1, nota2, nota3) {
+        const promediados = (nota1 + nota2 + nota3) / 3;
+        resultado = promediados;
+      }
+
+      const formulario = document.querySelector('.formulario');
+      formulario.addEventListener('submit', (e) => {
+        e.preventDefault();
+        promedio(Number(nota1.value), Number(nota2.value), Number(nota3.value));
+        const mensaje = document.createElement('H2');
+        mensaje.style.fontSize = '2rem';
+        mensaje.style.color = 'white';
+        mensaje.style.textAlign = 'center';
+        console.log(resultado);
+        if (resultado < 5) {
+          mensaje.textContent = 'No Aprovaste';
+          mensaje.style.backgroundColor = 'red';
+          formulario.append(mensaje);
+          mensaje.style.borderRadius = '8vh';
+          setTimeout(() => {
+            mensaje.remove();
+          }, 5000);
+        } else if (resultado >= 5 && resultado < 8) {
+          mensaje.textContent = 'Aprovaste';
+          mensaje.style.backgroundColor = 'green';
+          mensaje.style.borderRadius = '8vh';
+          formulario.append(mensaje);
+          setTimeout(() => {
+            mensaje.remove();
+          }, 5000);
+        } else if (resultado >= 8) {
+          mensaje.textContent = 'Aprovaste con Honores';
+          mensaje.style.backgroundColor = 'gold';
+          mensaje.style.borderRadius = '8vh';
+          formulario.append(mensaje);
+          setTimeout(() => {
+            mensaje.remove();
+          }, 5000);
+        }
+      });
+    </script>
+  </body>
+</html>
